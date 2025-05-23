@@ -11,6 +11,7 @@ export function GraphicsDesigns() {
     { name: "Logos", id: "logos" },
     { name: "Social Media", id: "social" },
     { name: "UI/UX", id: "ui-ux" },
+    { name: "Video Edits", id: "video" },
   ]
 
   const projects = [
@@ -50,6 +51,18 @@ export function GraphicsDesigns() {
       image: "/placeholder.svg?height=600&width=800",
       description: "User-centered design for an online fashion store with improved checkout flow.",
     },
+    {
+      title: "Product Showcase",
+      category: "video",
+      image: "/placeholder.svg?height=600&width=800",
+      description: "Short promotional video highlighting product features and benefits.",
+    },
+    {
+      title: "Motion Graphics Intro",
+      category: "video",
+      image: "/placeholder.svg?height=600&width=800",
+      description: "Animated intro sequence for YouTube channel with custom typography.",
+    },
   ]
 
   const [activeCategory, setActiveCategory] = useState("all")
@@ -61,11 +74,12 @@ export function GraphicsDesigns() {
       <ScrollReveal>
         <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-white font-manrope">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-red-500">
-            Graphics Designs
+            My Creative Works
           </span>
         </h2>
         <p className="text-gray-300 text-center mb-12 max-w-2xl mx-auto">
-          A collection of my design work across various categories, from logo design to UI/UX projects.
+          A collection of my design work across various categories, from logo design to video editing projects. All
+          created with passion and dedication, despite limited resources.
         </p>
       </ScrollReveal>
 
@@ -107,8 +121,6 @@ export function GraphicsDesigns() {
                     width={600}
                     height={400}
                     className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -122,7 +134,9 @@ export function GraphicsDesigns() {
                       ? "Logo Design"
                       : project.category === "social"
                         ? "Social Media"
-                        : "UI/UX Design"}
+                        : project.category === "ui-ux"
+                          ? "UI/UX Design"
+                          : "Video Editing"}
                   </span>
                 </div>
               </motion.div>

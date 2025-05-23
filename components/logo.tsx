@@ -21,7 +21,7 @@ export function Logo() {
           }}
         ></div>
         <div className="relative z-10">
-          <Image src="/logo.png" alt="NullifAI Logo" width={40} height={40} className="object-contain" />
+          <Image src="/main-logo.png" alt="NullifAI Logo" width={40} height={40} className="object-contain" />
         </div>
       </motion.div>
       <style jsx>{`

@@ -14,9 +14,9 @@ import { TypewriterText } from "@/components/typewriter-text"
 import { AnimatedSvgIcon } from "@/components/animated-svg-icon"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { SeeMoreButton } from "@/components/see-more-button"
-import { ArrowRight, Sparkles, Palette, ImageIcon, Wand2, X } from "lucide-react"
+import { PolygonConnections } from "@/components/polygon-connections"
+import { ArrowRight, Sparkles, Palette, ImageIcon, Wand2 } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { ContactFormSubmit } from "@/components/contact-form-submit"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -24,27 +24,13 @@ export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null)
   const projectsRef = useRef<HTMLDivElement>(null)
   const comingSoonRef = useRef<HTMLDivElement>(null)
-  const contactRef = useRef<HTMLDivElement>(null)
   const controls = useAnimation()
   const [isLoaded, setIsLoaded] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [targetRoute, setTargetRoute] = useState("")
-  const [showContactForm, setShowContactForm] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
-    // Check if contact form should be shown based on URL parameter
-    if (typeof window !== "undefined") {
-      const urlParams = new URLSearchParams(window.location.search)
-      const showContact = urlParams.get("contact") === "true"
-      if (showContact) {
-        setShowContactForm(true)
-        setTimeout(() => {
-          contactRef.current?.scrollIntoView({ behavior: "smooth" })
-        }, 500)
-      }
-    }
-
     // Set loaded state after initial animations
     const timeout = setTimeout(() => {
       setIsLoaded(true)
@@ -135,33 +121,9 @@ export default function Home() {
     router.push(route)
   }
 
-  const toggleContactForm = () => {
-    setShowContactForm(!showContactForm)
-    if (!showContactForm) {
-      // Update URL with contact parameter
-      if (typeof window !== "undefined") {
-        const url = new URL(window.location.href)
-        url.searchParams.set("contact", "true")
-        window.history.pushState({}, "", url)
-      }
-
-      // Scroll to contact form
-      setTimeout(() => {
-        contactRef.current?.scrollIntoView({ behavior: "smooth" })
-      }, 100)
-    } else {
-      // Remove contact parameter from URL
-      if (typeof window !== "undefined") {
-        const url = new URL(window.location.href)
-        url.searchParams.delete("contact")
-        window.history.pushState({}, "", url)
-      }
-    }
-  }
-
   return (
     <main className="min-h-screen flex flex-col relative">
-      <Navbar onContactClick={toggleContactForm} />
+      <Navbar />
 
       {/* Hero Section */}
       <section
@@ -179,11 +141,16 @@ export default function Home() {
           }}
         />
 
+        {/* Polygon connections overlay */}
+        <div className="absolute inset-0 z-1">
+          <PolygonConnections density={12} opacity={0.25} />
+        </div>
+
         {/* Particle Effect */}
         <ParticlesBackground />
 
         {/* Glassmorphism Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60 backdrop-blur-[2px] z-1"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60 backdrop-blur-[2px] z-2"></div>
 
         {/* Content */}
         <div className="text-center z-10 max-w-6xl mx-auto relative">
@@ -247,57 +214,38 @@ export default function Home() {
                 </span>
               </GlassmorphicButton>
 
-              <GlassmorphicButton glowColor="rgba(157, 78, 221, 0.6)" className="group" onClick={toggleContactForm}>
+              <GlassmorphicButton glowColor="rgba(157, 78, 221, 0.6)" className="group">
                 <span className="flex items-center gap-2">
                   <AnimatedSvgIcon icon={<Sparkles className="transition-all duration-300" />} hoverColor="#9d4edd" />
-                  Get in Touch
+                  Get Started
                 </span>
               </GlassmorphicButton>
             </div>
           </ScrollReveal>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{
-            y: [0, 10, 0],
-          }}
-          transition={{
-            duration: 1.5,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "loop",
-          }}
-        >
-          <div className="w-6 h-10 rounded-full border-2 border-white/30 flex justify-center pt-2">
-            <motion.div
-              className="w-1.5 h-1.5 rounded-full bg-white"
-              animate={{
-                y: [0, 8, 0],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Number.POSITIVE_INFINITY,
-                repeatType: "loop",
-              }}
-            />
-          </div>
-        </motion.div>
       </section>
 
       {/* Projects Section */}
-      <section ref={projectsRef} className="py-20 px-4 relative z-10 bg-black">
-        <div className="container mx-auto">
+      <section ref={projectsRef} className="py-20 px-4 relative z-10 bg-black overflow-hidden">
+        {/* Polygon connections background */}
+        <div className="absolute inset-0 z-0">
+          <PolygonConnections density={18} opacity={0.2} />
+        </div>
+
+        <div className="container mx-auto relative z-10">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Graphical Section */}
             <div className="w-full md:w-1/6 mb-8 md:mb-0">
               <motion.div
-                className="bg-black border border-gray-700 rounded-lg p-4 sticky top-24 cursor-pointer hover:border-purple-500 transition-colors"
+                className="bg-black/80 border border-gray-700 rounded-lg p-4 sticky top-24 cursor-pointer hover:border-purple-500 transition-colors backdrop-blur-sm relative overflow-hidden"
                 onClick={() => handleSectionClick("/portfolio?tab=works")}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <h3 className="font-bold text-xl text-white font-manrope">Graphical</h3>
+                <div className="absolute inset-0 z-0">
+                  <PolygonConnections density={30} opacity={0.1} />
+                </div>
+                <h3 className="font-bold text-xl text-white font-manrope relative z-10">Graphical</h3>
               </motion.div>
             </div>
 
@@ -314,22 +262,23 @@ export default function Home() {
                     className="card-container"
                   >
                     <motion.div
-                      className="card illuminated bg-black border border-gray-700 shadow-lg rounded-lg overflow-hidden transition-all duration-300 h-full cursor-pointer hover:border-purple-500"
+                      className="card illuminated bg-black/80 border border-gray-700 shadow-lg rounded-lg overflow-hidden transition-all duration-300 h-full cursor-pointer hover:border-purple-500 backdrop-blur-sm relative"
                       onClick={() => handleSectionClick("/portfolio?tab=works")}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <div className="relative h-48 overflow-hidden">
+                      <div className="absolute inset-0 z-0">
+                        <PolygonConnections density={35} opacity={0.08} />
+                      </div>
+                      <div className="relative h-48 overflow-hidden z-10">
                         <Image
                           src={project.image || "/placeholder.svg"}
                           alt={project.title}
                           fill
                           className="object-cover"
-                          loading="lazy"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </div>
-                      <div className="p-6">
+                      <div className="p-6 relative z-10">
                         <h3 className="text-xl font-bold mb-2 text-center text-white flex items-center justify-center gap-2">
                           <AnimatedSvgIcon icon={project.icon} color="#fff" hoverColor="#9d4edd" />
                           {project.type}
@@ -351,39 +300,29 @@ export default function Home() {
       </section>
 
       {/* Coming Soon Section */}
-      <section ref={comingSoonRef} className="py-16 px-4 relative z-10 opacity-0 transform translate-y-10 bg-black">
-        <div className="container mx-auto">
-          <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-8 flex justify-center items-center">
-            <TerminalText text="More coming soon..." />
+      <section
+        ref={comingSoonRef}
+        className="py-16 px-4 relative z-10 opacity-0 transform translate-y-10 bg-black overflow-hidden"
+      >
+        {/* Polygon connections background */}
+        <div className="absolute inset-0 z-0">
+          <PolygonConnections density={22} opacity={0.15} />
+        </div>
+
+        <div className="container mx-auto relative z-10">
+          <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-8 flex justify-center items-center relative overflow-hidden">
+            <div className="absolute inset-0 z-0">
+              <PolygonConnections density={28} opacity={0.1} />
+            </div>
+            <div className="relative z-10">
+              <TerminalText text="More coming soon..." />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Form Section - Hidden by default */}
-      {showContactForm && (
-        <motion.section
-          ref={contactRef}
-          className="py-20 px-4 relative z-10 bg-black"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="container mx-auto relative">
-            <button
-              onClick={toggleContactForm}
-              className="absolute top-0 right-0 p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors"
-              aria-label="Close contact form"
-            >
-              <X size={24} />
-            </button>
-            <ContactFormSubmit />
-          </div>
-        </motion.section>
-      )}
-
       {/* Footer */}
-      <Footer onContactClick={toggleContactForm} />
+      <Footer />
     </main>
   )
 }

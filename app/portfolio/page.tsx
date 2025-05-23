@@ -6,11 +6,12 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Image from "next/image"
 import { ScrollReveal } from "@/components/scroll-reveal"
-import { TypewriterText } from "@/components/typewriter-text"
 import { ParticlesBackground } from "@/components/particles-background"
 import { PortfolioTabs } from "@/components/portfolio-tabs"
 import { GraphicsDesigns } from "@/components/graphics-designs"
+import { PolygonConnections } from "@/components/polygon-connections"
 import { useRouter, useSearchParams } from "next/navigation"
+import { ContactFormSubmit } from "@/components/contact-form-submit"
 
 export default function PortfolioPage() {
   const searchParams = useSearchParams()
@@ -41,17 +42,18 @@ export default function PortfolioPage() {
     }, 100)
   }
 
-  const handleGetInTouch = () => {
-    router.push("/?contact=true")
-  }
-
   return (
-    <main className="min-h-screen flex flex-col relative bg-black">
+    <main className="min-h-screen flex flex-col relative bg-black overflow-hidden">
       <Navbar />
 
       {/* Background effects */}
       <div className="fixed inset-0 z-0 opacity-20">
         <ParticlesBackground />
+      </div>
+
+      {/* Polygon connections background */}
+      <div className="fixed inset-0 z-1 opacity-30">
+        <PolygonConnections density={15} opacity={0.2} />
       </div>
 
       {/* Hero section with tabs */}
@@ -77,19 +79,34 @@ export default function PortfolioPage() {
                 <div>
                   <ScrollReveal>
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white font-manrope">
-                      <TypewriterText text="Hello, I am" delay={300} speed={50} className="block text-purple-400" />
-                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 block text-3xl md:text-5xl">
-                        Md. Samiul Haque Mahin
+                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 block">
+                        About Me
                       </span>
                     </h1>
-                    <p className="text-xl text-gray-300 mb-8 font-manrope leading-relaxed">
-                      A beginner graphic designer with a passion for creativity — I enjoy making logos, social media
-                      posts, and I'm exploring the world of UI/UX design with growing interest and curiosity.
-                    </p>
+                    <div className="text-gray-300 mb-8 font-manrope leading-relaxed space-y-4">
+                      <p>
+                        Hi, I'm Md Samiul Haque Mahin from Bangladesh. I'm 21 years old — an introverted yet creative
+                        individual who's currently in the second year of a Bachelor's degree in Computer Science and
+                        Engineering. While I'm still building my skills in IT, I'm deeply interested in pursuing a
+                        career in cybersecurity.
+                      </p>
+                      <p>
+                        For the past 7 years, I've been passionate about graphic design and video editing. Despite
+                        working entirely on mobile due to the lack of a PC or laptop, I've gained a lot of hands-on
+                        experience. I still consider myself a beginner on the professional side, but I'm actively
+                        pushing forward, learning and creating on my own.
+                      </p>
+                      <p>
+                        Right now, I'm seeking opportunities to grow — whether through freelance work, internships, or
+                        any project that lets me gain experience and build my CV. I'm the only son in my family, with no
+                        income yet, and a blank CV that I'm eager to fill with real contributions. If you're open to
+                        giving me a chance to prove myself, I'd be genuinely excited to take it on.
+                      </p>
+                    </div>
                     <div className="flex flex-wrap gap-4">
                       <motion.button
-                        onClick={handleGetInTouch}
-                        className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg text-white font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all"
+                        onClick={() => setActiveTab("contact")}
+                        className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg text-white font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all backdrop-blur-sm"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -97,7 +114,7 @@ export default function PortfolioPage() {
                       </motion.button>
                       <motion.button
                         onClick={handleViewWorks}
-                        className="px-6 py-3 bg-transparent border border-purple-500 rounded-lg text-purple-400 font-medium hover:bg-purple-500/10 transition-all"
+                        className="px-6 py-3 bg-transparent border border-purple-500 rounded-lg text-purple-400 font-medium hover:bg-purple-500/10 transition-all backdrop-blur-sm"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -122,8 +139,6 @@ export default function PortfolioPage() {
                           width={500}
                           height={500}
                           className="object-cover w-full h-full"
-                          loading="eager"
-                          priority
                         />
                       </div>
                     </div>
@@ -142,6 +157,11 @@ export default function PortfolioPage() {
                 <GraphicsDesigns />
               </div>
             )}
+            {activeTab === "contact" && (
+              <div>
+                <ContactFormSubmit />
+              </div>
+            )}
           </div>
         </motion.section>
       </AnimatePresence>
@@ -154,24 +174,11 @@ export default function PortfolioPage() {
 function EducationSection() {
   const education = [
     {
-      degree: "Bachelor of Fine Arts in Graphic Design",
-      institution: "University of Creative Arts",
-      period: "2018 - 2022",
+      degree: "Bachelor of Computer Science and Engineering",
+      institution: "Northern University Bangladesh",
+      period: "2024 - Ongoing",
       description:
-        "Specialized in digital design with focus on UI/UX principles. Graduated with honors and received the Outstanding Design Portfolio award.",
-    },
-    {
-      degree: "Diploma in Web Development",
-      institution: "Tech Institute",
-      period: "2017 - 2018",
-      description:
-        "Learned front-end development technologies including HTML, CSS, JavaScript, and responsive design principles.",
-    },
-    {
-      degree: "High School Diploma",
-      institution: "Creative Arts High School",
-      period: "2013 - 2017",
-      description: "Focused on visual arts and digital media. Participated in national design competitions.",
+        "Currently pursuing a degree in Computer Science and Engineering, focusing on building a strong foundation in programming, algorithms, and software development.",
     },
   ]
 
@@ -187,20 +194,23 @@ function EducationSection() {
         {education.map((item, index) => (
           <ScrollReveal key={index} delay={index * 0.2}>
             <motion.div
-              className="relative bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-6 hover:border-purple-500/50 transition-all"
+              className="relative bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-6 hover:border-purple-500/50 transition-all overflow-hidden"
               whileHover={{ x: 5 }}
             >
+              <div className="absolute inset-0 z-0">
+                <PolygonConnections density={40} opacity={0.08} />
+              </div>
               {/* Timeline dot */}
-              <div className="absolute left-0 top-6 w-4 h-4 rounded-full bg-purple-500 shadow-lg shadow-purple-500/50 -translate-x-[2.25rem]"></div>
+              <div className="absolute left-0 top-6 w-4 h-4 rounded-full bg-purple-500 shadow-lg shadow-purple-500/50 -translate-x-[2.25rem] z-10"></div>
 
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 relative z-10">
                 <h3 className="text-xl font-bold text-white">{item.degree}</h3>
                 <span className="text-purple-400 font-medium text-sm px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
                   {item.period}
                 </span>
               </div>
-              <h4 className="text-lg text-gray-300 mb-3">{item.institution}</h4>
-              <p className="text-gray-400">{item.description}</p>
+              <h4 className="text-lg text-gray-300 mb-3 relative z-10">{item.institution}</h4>
+              <p className="text-gray-400 relative z-10">{item.description}</p>
             </motion.div>
           </ScrollReveal>
         ))}
@@ -210,71 +220,58 @@ function EducationSection() {
 }
 
 function ExperienceSection() {
-  const experiences = [
-    {
-      position: "Senior Graphic Designer",
-      company: "Creative Solutions Agency",
-      period: "2022 - Present",
-      description:
-        "Lead designer for major brand campaigns. Manage a team of junior designers and oversee project timelines and deliverables.",
-      skills: ["Brand Identity", "Marketing Materials", "Team Leadership"],
-    },
-    {
-      position: "UI/UX Designer",
-      company: "TechStart Inc.",
-      period: "2020 - 2022",
-      description:
-        "Designed user interfaces for web and mobile applications. Conducted user research and created wireframes, prototypes, and final designs.",
-      skills: ["Figma", "User Research", "Prototyping"],
-    },
-    {
-      position: "Freelance Designer",
-      company: "Self-employed",
-      period: "2018 - 2020",
-      description:
-        "Worked with various clients on logo design, branding, and marketing materials. Built a diverse portfolio across multiple industries.",
-      skills: ["Logo Design", "Branding", "Client Management"],
-    },
-  ]
-
   return (
     <div className="max-w-4xl mx-auto">
       <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-white font-manrope">
         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
-          Work Experience
+          Design Journey
         </span>
       </h2>
 
-      <div className="space-y-12">
-        {experiences.map((exp, index) => (
-          <ScrollReveal key={index} delay={index * 0.2}>
-            <motion.div
-              className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-6 hover:border-purple-500/50 transition-all"
-              whileHover={{ y: -5 }}
-            >
-              <div className="flex flex-col md:flex-row justify-between mb-4">
-                <h3 className="text-xl font-bold text-white">{exp.position}</h3>
-                <span className="text-purple-400 font-medium text-sm px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
-                  {exp.period}
-                </span>
-              </div>
-              <h4 className="text-lg text-gray-300 mb-3">{exp.company}</h4>
-              <p className="text-gray-400 mb-4">{exp.description}</p>
+      <ScrollReveal>
+        <motion.div
+          className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-purple-500/50 transition-all relative overflow-hidden"
+          whileHover={{ y: -5 }}
+        >
+          <div className="absolute inset-0 z-0">
+            <PolygonConnections density={35} opacity={0.1} />
+          </div>
+          <div className="flex flex-col md:flex-row justify-between mb-6 relative z-10">
+            <h3 className="text-xl font-bold text-white">Graphics Design & Video Editing</h3>
+            <span className="text-purple-400 font-medium text-sm px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
+              2019 - Present
+            </span>
+          </div>
 
-              <div className="flex flex-wrap gap-2 mt-4">
-                {exp.skills.map((skill, i) => (
-                  <span
-                    key={i}
-                    className="text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-300 border border-gray-700"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          </ScrollReveal>
-        ))}
-      </div>
+          <p className="text-gray-300 mb-6 leading-relaxed relative z-10">
+            Although I didn't work on many projects early on — especially back in class 9 when I wasn't sure which
+            direction to take — I've been steadily growing and finding my path. Over the past 7 years (2019-till now),
+            I've gained hands-on experience in visual design and video editing, learning and creating entirely on mobile
+            due to limited access to a PC or laptop. While I still consider myself a beginner professionally, my
+            dedication and passion are reflected in the work I produce. You're welcome to explore my designs and edits —
+            and if they resonate with you, I'd be thrilled to take on a project or even a trial task to demonstrate my
+            skills.
+          </p>
+
+          <div className="flex flex-wrap gap-2 mt-6 relative z-10">
+            <span className="text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-300 border border-gray-700">
+              Logo Design
+            </span>
+            <span className="text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-300 border border-gray-700">
+              Social Media Graphics
+            </span>
+            <span className="text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-300 border border-gray-700">
+              Video Editing
+            </span>
+            <span className="text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-300 border border-gray-700">
+              Mobile Design
+            </span>
+            <span className="text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-300 border border-gray-700">
+              Self-taught
+            </span>
+          </div>
+        </motion.div>
+      </ScrollReveal>
     </div>
   )
 }

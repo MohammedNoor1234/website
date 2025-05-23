@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Briefcase, GraduationCap, Palette } from "lucide-react"
+import { Briefcase, GraduationCap, Palette, Mail } from "lucide-react"
 
 interface PortfolioTabsProps {
   activeTab: string
@@ -29,6 +29,11 @@ export function PortfolioTabs({ activeTab, setActiveTab }: PortfolioTabsProps) {
       id: "works",
       label: "My Works",
       icon: <Palette className="w-5 h-5" />,
+    },
+    {
+      id: "contact",
+      label: "Contact",
+      icon: <Mail className="w-5 h-5" />,
     },
   ]
 

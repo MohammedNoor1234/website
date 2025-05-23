@@ -83,18 +83,7 @@
   background-clip: text;
   color: transparent;
   text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
-  font-weight: 900;
-}
-
-.ai-gradient-text {
-  background: linear-gradient(135deg, #9d4edd, #7b2cbf, #5a189a, #240046);
-  background-size: 300% 300%;
-  animation: aiGradient 6s ease infinite;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 25px rgba(157, 78, 221, 0.8);
-  font-weight: 900;
+  filter: drop-shadow(0 0 15px rgba(255, 107, 53, 0.4)) drop-shadow(0 0 30px rgba(247, 147, 30, 0.3));
 }
 
 .terminal-text {
@@ -202,6 +191,17 @@
   background: linear-gradient(135deg, #9d4edd, #7b2cbf, #5a189a, #3c096c);
 }
 
+.ai-gradient-text {
+  background: linear-gradient(135deg, #9d4edd, #7b2cbf, #5a189a, #240046);
+  background-size: 300% 300%;
+  animation: aiGradient 6s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 25px rgba(157, 78, 221, 0.8);
+  filter: drop-shadow(0 0 15px rgba(157, 78, 221, 0.6)) drop-shadow(0 0 30px rgba(123, 44, 191, 0.4));
+}
+
 .nullif-glow {
   filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.6)) drop-shadow(0 0 40px rgba(247, 147, 30, 0.4));
 }
@@ -283,19 +283,4 @@
 
 .portfolio-tab.active::after {
   width: 100%;
-}
-
-/* Mobile optimizations */
-@media (max-width: 640px) {
-  .blackhole-gradient-text,
-  .ai-gradient-text {
-    font-size: 3rem;
-  }
-
-  h1,
-  h2,
-  h3 {
-    word-break: break-word;
-    hyphens: auto;
-  }
 }

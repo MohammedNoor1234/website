@@ -6,20 +6,15 @@ import { motion } from "framer-motion"
 import { Logo } from "./logo"
 import { Menu, X } from "lucide-react"
 
-interface NavbarProps {
-  onContactClick?: () => void
-}
-
 const navItems = [
   { name: "Portfolio", href: "/portfolio", comingSoon: false },
   { name: "Marketing", href: "/marketing", comingSoon: true },
   { name: "Tools", href: "/tools", comingSoon: true },
   { name: "Games", href: "/games", comingSoon: true },
   { name: "Apps", href: "/apps", comingSoon: true },
-  { name: "About", href: "/about", comingSoon: false },
 ]
 
-export function Navbar({ onContactClick }: NavbarProps) {
+export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -58,14 +53,6 @@ export function Navbar({ onContactClick }: NavbarProps) {
                 {item.name}
               </Link>
             ))}
-            {onContactClick && (
-              <button
-                onClick={onContactClick}
-                className="px-4 py-2 rounded-lg border border-purple-500 hover:border-purple-400 hover:bg-purple-dark/10 transition-colors relative text-white font-poppins"
-              >
-                Get in Touch
-              </button>
-            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -101,17 +88,6 @@ export function Navbar({ onContactClick }: NavbarProps) {
                   {item.name}
                 </Link>
               ))}
-              {onContactClick && (
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false)
-                    onContactClick()
-                  }}
-                  className="px-4 py-3 rounded-lg border border-purple-500 hover:border-purple-400 hover:bg-purple-dark/10 transition-colors relative text-white font-poppins text-left"
-                >
-                  Get in Touch
-                </button>
-              )}
             </nav>
           </div>
         </motion.div>

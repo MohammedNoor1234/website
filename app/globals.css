@@ -1,0 +1,301 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.blackhole-gradient-text {
+  background: linear-gradient(135deg, #ff6b35, #f7931e, #ffcc02, #ff6b35);
+  background-size: 300% 300%;
+  animation: blackholeGradient 8s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+  font-weight: 900;
+}
+
+.ai-gradient-text {
+  background: linear-gradient(135deg, #9d4edd, #7b2cbf, #5a189a, #240046);
+  background-size: 300% 300%;
+  animation: aiGradient 6s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 25px rgba(157, 78, 221, 0.8);
+  font-weight: 900;
+}
+
+.terminal-text {
+  white-space: nowrap;
+  overflow: hidden;
+  font-style: italic;
+  font-family: var(--font-manrope);
+  color: #9d4edd;
+}
+
+@keyframes blackholeGradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.space-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.custom-cursor {
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(157, 78, 221, 0.15) 0%, rgba(77, 24, 255, 0.05) 50%, transparent 100%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.3s, height 0.3s, background 0.3s;
+  backdrop-filter: blur(1px);
+}
+
+.custom-cursor.hover {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(157, 78, 221, 0.25) 0%, rgba(77, 24, 255, 0.1) 50%, transparent 100%);
+}
+
+.coming-soon {
+  position: relative;
+}
+
+.coming-soon::after {
+  content: "Coming Soon";
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: linear-gradient(90deg, #4d18ff, #9d4edd);
+  color: white;
+  font-size: 0.6rem;
+  padding: 2px 6px;
+  border-radius: 10px;
+  opacity: 0.8;
+}
+
+.card-container {
+  perspective: 1000px;
+}
+
+.card {
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.card:hover {
+  transform: scale(1.05) rotateY(10deg) rotateX(5deg);
+}
+
+.illuminated {
+  position: relative;
+  overflow: hidden;
+}
+
+.illuminated::before {
+  content: "";
+  position: absolute;
+  top: var(--mouse-y, 50%);
+  left: var(--mouse-x, 50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(157, 78, 221, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.illuminated:hover::before {
+  opacity: 1;
+}
+
+.logo-gradient-bg {
+  background: linear-gradient(135deg, #9d4edd, #7b2cbf, #5a189a, #3c096c);
+}
+
+.nullif-glow {
+  filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.6)) drop-shadow(0 0 40px rgba(247, 147, 30, 0.4));
+}
+
+.ai-glow {
+  filter: drop-shadow(0 0 20px rgba(157, 78, 221, 0.8)) drop-shadow(0 0 40px rgba(123, 44, 191, 0.6));
+}
+
+@keyframes aiGradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.graphical-section {
+  background: radial-gradient(circle at 20% 80%, rgba(157, 78, 221, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(77, 24, 255, 0.1) 0%, transparent 50%);
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 0.8s infinite;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: ripple 0.8s ease-out forwards;
+}
+
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* Portfolio page specific styles */
+.portfolio-tab {
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-tab::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #9d4edd, #ff6b35);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.portfolio-tab:hover::after {
+  width: 80%;
+}
+
+.portfolio-tab.active::after {
+  width: 100%;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .blackhole-gradient-text,
+  .ai-gradient-text {
+    font-size: 3rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    word-break: break-word;
+    hyphens: auto;
+  }
+}

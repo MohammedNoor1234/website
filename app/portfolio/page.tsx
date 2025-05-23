@@ -9,7 +9,6 @@ import { ScrollReveal } from "@/components/scroll-reveal"
 import { ParticlesBackground } from "@/components/particles-background"
 import { PortfolioTabs } from "@/components/portfolio-tabs"
 import { GraphicsDesigns } from "@/components/graphics-designs"
-import { PolygonConnections } from "@/components/polygon-connections"
 import { useRouter, useSearchParams } from "next/navigation"
 import { ContactFormSubmit } from "@/components/contact-form-submit"
 
@@ -43,17 +42,12 @@ export default function PortfolioPage() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col relative bg-black overflow-hidden">
+    <main className="min-h-screen flex flex-col relative bg-black">
       <Navbar />
 
       {/* Background effects */}
       <div className="fixed inset-0 z-0 opacity-20">
         <ParticlesBackground />
-      </div>
-
-      {/* Polygon connections background */}
-      <div className="fixed inset-0 z-1 opacity-30">
-        <PolygonConnections density={15} opacity={0.2} />
       </div>
 
       {/* Hero section with tabs */}
@@ -106,7 +100,7 @@ export default function PortfolioPage() {
                     <div className="flex flex-wrap gap-4">
                       <motion.button
                         onClick={() => setActiveTab("contact")}
-                        className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg text-white font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all backdrop-blur-sm"
+                        className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg text-white font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -114,7 +108,7 @@ export default function PortfolioPage() {
                       </motion.button>
                       <motion.button
                         onClick={handleViewWorks}
-                        className="px-6 py-3 bg-transparent border border-purple-500 rounded-lg text-purple-400 font-medium hover:bg-purple-500/10 transition-all backdrop-blur-sm"
+                        className="px-6 py-3 bg-transparent border border-purple-500 rounded-lg text-purple-400 font-medium hover:bg-purple-500/10 transition-all"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -194,23 +188,20 @@ function EducationSection() {
         {education.map((item, index) => (
           <ScrollReveal key={index} delay={index * 0.2}>
             <motion.div
-              className="relative bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-6 hover:border-purple-500/50 transition-all overflow-hidden"
+              className="relative bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-6 hover:border-purple-500/50 transition-all"
               whileHover={{ x: 5 }}
             >
-              <div className="absolute inset-0 z-0">
-                <PolygonConnections density={40} opacity={0.08} />
-              </div>
               {/* Timeline dot */}
-              <div className="absolute left-0 top-6 w-4 h-4 rounded-full bg-purple-500 shadow-lg shadow-purple-500/50 -translate-x-[2.25rem] z-10"></div>
+              <div className="absolute left-0 top-6 w-4 h-4 rounded-full bg-purple-500 shadow-lg shadow-purple-500/50 -translate-x-[2.25rem]"></div>
 
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 relative z-10">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                 <h3 className="text-xl font-bold text-white">{item.degree}</h3>
                 <span className="text-purple-400 font-medium text-sm px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
                   {item.period}
                 </span>
               </div>
-              <h4 className="text-lg text-gray-300 mb-3 relative z-10">{item.institution}</h4>
-              <p className="text-gray-400 relative z-10">{item.description}</p>
+              <h4 className="text-lg text-gray-300 mb-3">{item.institution}</h4>
+              <p className="text-gray-400">{item.description}</p>
             </motion.div>
           </ScrollReveal>
         ))}
@@ -230,20 +221,17 @@ function ExperienceSection() {
 
       <ScrollReveal>
         <motion.div
-          className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-purple-500/50 transition-all relative overflow-hidden"
+          className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8 hover:border-purple-500/50 transition-all"
           whileHover={{ y: -5 }}
         >
-          <div className="absolute inset-0 z-0">
-            <PolygonConnections density={35} opacity={0.1} />
-          </div>
-          <div className="flex flex-col md:flex-row justify-between mb-6 relative z-10">
+          <div className="flex flex-col md:flex-row justify-between mb-6">
             <h3 className="text-xl font-bold text-white">Graphics Design & Video Editing</h3>
             <span className="text-purple-400 font-medium text-sm px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
               2019 - Present
             </span>
           </div>
 
-          <p className="text-gray-300 mb-6 leading-relaxed relative z-10">
+          <p className="text-gray-300 mb-6 leading-relaxed">
             Although I didn't work on many projects early on — especially back in class 9 when I wasn't sure which
             direction to take — I've been steadily growing and finding my path. Over the past 7 years (2019-till now),
             I've gained hands-on experience in visual design and video editing, learning and creating entirely on mobile
@@ -253,7 +241,7 @@ function ExperienceSection() {
             skills.
           </p>
 
-          <div className="flex flex-wrap gap-2 mt-6 relative z-10">
+          <div className="flex flex-wrap gap-2 mt-6">
             <span className="text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-300 border border-gray-700">
               Logo Design
             </span>

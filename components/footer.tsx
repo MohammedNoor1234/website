@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { DoorTransition } from "./door-transition"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
+import { PolygonConnections } from "./polygon-connections"
 
 interface FooterProps {
   hideToolsInSubtab?: boolean
@@ -19,7 +20,7 @@ export function Footer({ hideToolsInSubtab = false }: FooterProps) {
     {
       name: "Midjourney",
       url: "https://midjourney.com",
-      logo: "/nullifai-text.png",
+      logo: "/midjourney-new.png",
     },
     {
       name: "ChatGPT",
@@ -43,10 +44,20 @@ export function Footer({ hideToolsInSubtab = false }: FooterProps) {
 
   return (
     <>
-      <footer className="py-12 px-4 relative z-10 border-t border-gray-700 bg-black">
-        <div className="container mx-auto">
-          <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <footer className="py-12 px-4 relative z-10 border-t border-gray-700 bg-black overflow-hidden">
+        {/* Polygon connections background */}
+        <div className="absolute inset-0 z-0">
+          <PolygonConnections density={20} opacity={0.2} />
+        </div>
+
+        <div className="container mx-auto relative z-10">
+          <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6 relative overflow-hidden">
+            {/* Inner polygon connections */}
+            <div className="absolute inset-0 z-0">
+              <PolygonConnections density={25} opacity={0.15} />
+            </div>
+
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
               {/* Powered By Section - Only show on home page */}
               {(!hideToolsInSubtab || isHomePage) && (
                 <div className="flex-1">
@@ -58,7 +69,7 @@ export function Footer({ hideToolsInSubtab = false }: FooterProps) {
                         href={tool.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center px-3 py-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 hover:border-purple-500 rounded-md transition-colors group"
+                        className="flex items-center justify-center px-3 py-2 bg-gray-800/80 hover:bg-gray-700/80 border border-gray-600 hover:border-purple-500 rounded-md transition-colors group backdrop-blur-sm"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.98 }}
                       >
@@ -95,7 +106,7 @@ export function Footer({ hideToolsInSubtab = false }: FooterProps) {
                 <div className="mt-4">
                   <motion.button
                     onClick={handleSectionClick}
-                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors font-medium"
+                    className="px-4 py-2 bg-purple-600/80 hover:bg-purple-700/80 text-white rounded-lg transition-colors font-medium backdrop-blur-sm"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -106,9 +117,9 @@ export function Footer({ hideToolsInSubtab = false }: FooterProps) {
             </div>
           </div>
         </div>
-      </footer>
 
-      <DoorTransition isOpen={isTransitioning} targetRoute="/portfolio" onComplete={handleTransitionComplete} />
+        <DoorTransition isOpen={isTransitioning} targetRoute="/portfolio" onComplete={handleTransitionComplete} />
+      </footer>
     </>
   )
 }
